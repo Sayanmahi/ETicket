@@ -1,7 +1,11 @@
+using ETicket.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectinString = builder.Configuration.GetConnectionString("tt");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectinString));
 
 var app = builder.Build();
 
