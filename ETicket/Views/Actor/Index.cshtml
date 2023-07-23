@@ -1,0 +1,35 @@
+﻿@model List<Actor>
+@{
+    ViewData["Title"] = "ll";
+}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Profile Picture</th>
+                    <th>Full Name</th>
+                    <th>Biography</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var v in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@v.ProfilePictureUrl" style="max-width:150px"/>
+                        </td>
+                        <td class="align-middle"><b>@Html.DisplayFor(modelItem => v.FullName)</b></td>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => v.Bio)</td>
+                        <td >
+                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a> |
+                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Details</a> |
+                            <a class="btn btn-danger"><i class="bi bi-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
