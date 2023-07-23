@@ -14,7 +14,7 @@ namespace ETicket.Controllers
         public async Task<IActionResult> Index()
         {
             var d=await  db.Movies.ToListAsync();
-            return View();
+            return View(d);
         }
     }
 }

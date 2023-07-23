@@ -1,5 +1,6 @@
 ﻿using ETicket.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicket.Controllers
 {
@@ -10,10 +11,10 @@ namespace ETicket.Controllers
         {
             db = _db;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var d= db.Producers.ToList();   
-            return View();
+            var d= await db.Cinemas.ToListAsync();   
+            return View(d);
         }
     }
 }
