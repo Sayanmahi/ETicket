@@ -13,7 +13,7 @@ namespace ETicket.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var d=await  db.Movies.ToListAsync();
+            var d=await  db.Movies.Include(n =>n.Cinema).ToListAsync();
             return View(d);
         }
     }

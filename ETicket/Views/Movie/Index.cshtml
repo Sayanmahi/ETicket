@@ -24,15 +24,20 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@v.Description</p>
-                            <p class="card-text"><b>Cinema: </b>@v.Cinema</p>
+                            <p class="card-text"><b>Cinema: </b>@v.Cinema.Name</p>
                             <p class="card-text"><b>Category: </b>@v.MovieCategory</p>
-                            <p class="card-text"><b>Start Date: </b>@v.StartDate</p>
-                            <p class="card-text"><b>End Date: </b>@v.EndDate</p>
+                            <p class="card-text"><b>Start Date: </b>@v.StartDate.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>End Date: </b>@v.EndDate.ToString("dd MMM yy")</p>
                             <p class="card-text">
                                 <b>Status: </b>
                                 @if(DateTime.Now>=v.StartDate && DateTime.Now <=v.EndDate)
                                 {
                                     <span class="badge bg-success text-white">Available</span>
+                                }
+                                else if(DateTime.Now > v.EndDate)
+                                {
+                                    <span class="badge bg-danger text-white">Expired</span>
+
                                 }
                                 else 
                                 {
@@ -45,7 +50,7 @@
                         <div class="card-footer">
                             <p class="card-text">
                                 <a class="btn btn-outline-primary float-right"><i class="bi bi-eye-fill"></i>Show Details</a>
-                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus-"></i>Add to Cart</a>
+                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus-"></i>Add to Cart(Price= Rs. @v.Price)</a>
 
                             </p>
                         </div>
