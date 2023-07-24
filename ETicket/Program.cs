@@ -1,4 +1,5 @@
 using ETicket.Data;
+using ETicket.Data.Services;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 var connectinString = builder.Configuration.GetConnectionString("tt");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectinString));
+builder.Services.AddScoped<IActorService, ActorService>();
 
 var app = builder.Build();
 
