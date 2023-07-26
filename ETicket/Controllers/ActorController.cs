@@ -1,5 +1,6 @@
 ﻿using ETicket.Data;
 using ETicket.Data.Services;
+using ETicket.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicket.Controllers
@@ -19,6 +20,12 @@ namespace ETicket.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureUrl,Bio")]Actor actor)
+        {
+            db.Add(actor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

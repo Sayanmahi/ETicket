@@ -12,7 +12,8 @@ namespace ETicket.Data.Services
         }
         public void Add(Actor actor)
         {
-            throw new NotImplementedException();
+            db.Actors.Add(actor);
+            db.SaveChanges();
         }
 
         public void Delete(int Id)
