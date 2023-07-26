@@ -10,15 +10,17 @@ namespace ETicket.Data.Services
         {
             db = _db;
         }
-        public void Add(Actor actor)
+        public async Task Add(Actor actor)
         {
             db.Actors.Add(actor);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int Id)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            var r=await db.Actors.FirstOrDefaultAsync(x => x.Id == Id); 
+             db.Actors.Remove(r);
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Actor>> GetAll()
@@ -27,14 +29,17 @@ namespace ETicket.Data.Services
             return d;
         }
 
-        public Actor GetById(int Id)
+        public async Task<Actor> GetById(int Id)
         {
-            throw new NotImplementedException();
+            var r=await db.Actors.FirstOrDefaultAsync(n => n.Id == Id);
+            return r;
         }
 
-        public Actor Update(int Id, Actor newActor)
+        public async Task<Actor> Update(int Id, Actor newActor)
         {
-            throw new NotImplementedException();
+            db.Update(newActor);
+            await db.SaveChangesAsync();
+            return newActor;
         }
     }
 }

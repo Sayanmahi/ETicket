@@ -24,8 +24,46 @@ namespace ETicket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("FullName,ProfilePictureUrl,Bio")]Actor actor)
         {
-            db.Add(actor);
+            await db.Add(actor);
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var a = await db.GetById(Id);
+            if (a == null)
+                return View("Not Found");
+            return View(a);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int Id,[Bind("Id,FullName,ProfilePictureUrl,Bio")] Actor actor)
+        {
+            await db.Update(Id,actor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var a = await db.GetById(Id);
+            
+            return View(a);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int Id)
+        {
+            await  db.Delete(Id);
+        
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var d =await db.GetById(id);
+            if (d == null)
+                return View("Empty");
+            return View(d); 
         }
     }
 }
