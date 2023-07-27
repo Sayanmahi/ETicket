@@ -31,7 +31,7 @@ namespace ETicket.Controllers
         {
             var a = await db.GetById(Id);
             if (a == null)
-                return View("Not Found");
+                return View("NotFound");
             return View(a);
         }
 
@@ -62,7 +62,7 @@ namespace ETicket.Controllers
         {
             var d =await db.GetById(id);
             if (d == null)
-                return View("Empty");
+                return View("NotFound");
             return View(d); 
         }
     }
