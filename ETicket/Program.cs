@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 var connectinString = builder.Configuration.GetConnectionString("tt");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectinString));
 builder.Services.AddScoped<IActorService, ActorService>();
-
+builder.Services.AddScoped<IProducerService, ProducerService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

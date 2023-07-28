@@ -24,7 +24,7 @@
                         <td class="align-middle">@Html.DisplayFor(modelItem => v.Bio)</td>
                         <td>
                             <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a> |
-                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Details</a> |
+                            <a class="btn btn-outline-info" asp-controller="Producer" asp-action="Details" asp-route-id="@v.Id"><i class="bi bi-eye"></i>Details</a> |
                             <a class="btn btn-danger"><i class="bi bi-trash"></i>Delete</a>
                         </td>
                     </tr>
