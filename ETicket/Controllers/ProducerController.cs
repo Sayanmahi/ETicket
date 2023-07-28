@@ -1,5 +1,6 @@
 ﻿using ETicket.Data;
 using ETicket.Data.Services;
+using ETicket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,16 @@ namespace ETicket.Controllers
             if (d == null)
                 return View("NotFound");
             return View(d);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("ProfilePictureUrl,FullName,Bio")]Producer p)
+        {   
+            await db.Add(p);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
