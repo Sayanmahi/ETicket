@@ -23,9 +23,9 @@
                         <td class="align-middle"><b>@Html.DisplayFor(modelItem => v.Name)</b></td>
                         <td class="align-middle">@Html.DisplayFor(modelItem => v.Description)</td>
                         <td>
-                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a> |
-                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Details</a> |
-                            <a class="btn btn-danger"><i class="bi bi-trash"></i>Delete</a>
+                            <a class="btn btn-outline-primary" asp-controller="Cinema" asp-action="Update" asp-route-Id="@v.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
+                            <a class="btn btn-outline-info" asp-controller="Cinema" asp-action="Details" asp-route-Id="@v.Id"><i class="bi bi-eye"></i>Details</a> |
+                            <a class="btn btn-danger" asp-controller="Cinema" asp-action="Delete" asp-route-Id="@v.Id"><i class="bi bi-trash"></i>Delete</a>
                         </td>
                     </tr>
                 }
