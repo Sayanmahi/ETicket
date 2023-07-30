@@ -1,6 +1,7 @@
 ﻿using ETicket.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace ETicket.Data.Base
 {
@@ -28,6 +29,13 @@ namespace ETicket.Data.Base
         {
             var d = await db.Set<T>().ToListAsync();
             return d;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeproperties)
+        {
+            IQueryable<T> q = db.Set<T>();
+            q = includeproperties.Aggregate(q, (current, includeProperty) => current.Include(includeProperty));
+            return await q.ToListAsync();
         }
 
         public async Task<T> GetById(int Id)

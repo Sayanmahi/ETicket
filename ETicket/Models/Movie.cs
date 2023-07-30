@@ -1,10 +1,11 @@
-﻿using ETicket.Data.Enums;
+﻿using ETicket.Data.Base;
+using ETicket.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ETicket.Models
 {
-    public class Movie
+    public class Movie:IEntityBase
     {
         [Key]
         public int Id { get; set; }
