@@ -1,5 +1,6 @@
 ﻿using ETicket.Data;
 using ETicket.Data.Services;
+using ETicket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,12 @@ namespace ETicket.Controllers
             ViewBag.ActorId = new SelectList(dd.Actors, "Id", "FullName");
 
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(NewMovieVm v)
+        {
+            await db.AddNewMovie(v);
+            return RedirectToAction("Index");
         }
 
     }

@@ -8,5 +8,6 @@ namespace ETicket.Data.Services
     {
         Task<Movie> GetMovieById(int id);
         Task<NewMovieDropdownVM> GetNewMovieDropdown();
+        Task AddNewMovie(NewMovieVm vm);
     }
 }
