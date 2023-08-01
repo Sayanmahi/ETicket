@@ -1,5 +1,5 @@
 ﻿@model NewMovieVm
-
+@using ETicket.Data.Enums;
 @{
     ViewData["Titel"] = "Create a new Movie";
 }
@@ -44,22 +44,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="CinemaId" class="control-label"></label>
-                                <select asp-for="CinemaId" class="form-control" ></select>
+                                <select asp-for="CinemaId" class="form-control" asp-items="ViewBag.CinemaId" ></select>
                                 <span asp-validation-for="CinemaId" class="text-daner"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="MovieCategory" class="control-label"></label>
-                                <select asp-for="MovieCategory" class="form-control"></select>
+                                <select asp-for="MovieCategory" class="form-control" asp-items="Html.GetEnumSelectList<MovieCategory>()"></select>
                                 <span asp-validation-for="MovieCategory" class="text-daner"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="ProducerId" class="control-label"></label>
-                                <select asp-for="ProducerId" class="form-control"></select>
+                                <select asp-for="ProducerId" class="form-control" asp-items="ViewBag.ProducerId"></select>
                                 <span asp-validation-for="ProducerId" class="text-daner"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="ActorIds" class="control-label"></label>
-                                <select asp-for="ActorIds" class="form-control" multiple></select>
+                                <select asp-for="ActorIds" class="form-control" multiple asp-items="ViewBag.ActorId"></select>
                                 <span asp-validation-for="ActorIds" class="text-daner"></span>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
 </div>
 @section Scripts{
     <script>
-        $("ImageUrl").on("change",function(){
+        $("#ImageUrl").on("change",function(){
             var output=document.getElementById("ImageUrlPreview");
             output.src=$(this).val();
         })
