@@ -22,5 +22,10 @@ namespace ETicket.Controllers
             var m = await db.GetMovieById(id);
             return View(m);
         }
+        public IActionResult Create() 
+        {
+            return View();
+        }
+
     }
 }
