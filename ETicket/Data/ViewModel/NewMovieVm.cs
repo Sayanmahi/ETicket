@@ -7,6 +7,7 @@ namespace ETicket.Models
 {
     public class NewMovieVm
     {
+        public int Id { get; set; }
         [Required(ErrorMessage ="Name is Required")]
         [Display(Name ="Movie Name")]
         public string Name { get; set; }

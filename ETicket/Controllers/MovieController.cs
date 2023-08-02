@@ -19,6 +19,17 @@ namespace ETicket.Controllers
             var d=await  db.GetAllAsync(n => n.Cinema);
             return View(d);
         }
+
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var d = await db.GetAllAsync(n => n.Cinema);
+            if(!string.IsNullOrEmpty(searchString))
+                {
+               var resu = d.Where(n => n.Name.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+                return View("Index", resu);
+            }
+            return View("Index",d);
+        }
         public async Task<IActionResult> Details(int id)
         {
             var m = await db.GetMovieById(id);
@@ -39,6 +50,40 @@ namespace ETicket.Controllers
             await db.AddNewMovie(v);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var mm=await db.GetMovieById(Id);
+            if (mm == null)
+                return View("NotFound");
+            var response = new NewMovieVm()
+            {
+                Id = mm.Id,
+                Name = mm.Name,
+                Description = mm.Description,
+                Price = mm.Price,
+                ImageUrl = mm.ImageUrl,
+                MovieCategory = mm.MovieCategory,
+                CinemaId = mm.CinemaId,
+                ProducerId = mm.ProducerId,
+                ActorIds = mm.Actors_Movies.Select(n => n.ActorId).ToList()
+            };
+            var dd = await db.GetNewMovieDropdown();
+            ViewBag.CinemaId = new SelectList(dd.Cinemas, "Id", "Name");
+            ViewBag.ProducerId = new SelectList(dd.Producers, "Id", "FullName");
+            ViewBag.ActorId = new SelectList(dd.Actors, "Id", "FullName");
+
+            return View(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id,NewMovieVm v)
+        {
+            if (id != v.Id)
+                return View("NotFound");
+            await db.UpdateMovie(v);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

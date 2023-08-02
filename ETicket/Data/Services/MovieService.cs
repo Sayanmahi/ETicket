@@ -53,5 +53,36 @@ namespace ETicket.Data.Services
             d.Producers = await db.Producers.OrderBy(n => n.FullName).ToListAsync();
             return (d);
         }
+
+        public async Task UpdateMovie(NewMovieVm vm)
+        {
+            var dp=await db.Movies.FirstOrDefaultAsync(n=> n.Id == vm.Id);
+            if (dp != null)
+            {
+                dp.Name = vm.Name;
+                dp.Description = vm.Description;
+                dp.Price = vm.Price;
+                dp.ImageUrl = vm.ImageUrl;
+                dp.CinemaId = vm.CinemaId;
+                dp.StartDate = vm.StartDate;
+                dp.EndDate = vm.EndDate;
+                dp.MovieCategory = vm.MovieCategory;
+                dp.ProducerId = vm.ProducerId;
+                await db.SaveChangesAsync();
+            }
+            //Remove existings actors related to this movie
+            var existing=db.Actor_Movies.Where(n =>n.MovieId== vm.Id).ToList(); 
+             db.Actor_Movies.RemoveRange(existing);
+            await db.SaveChangesAsync();
+            //Add MovieActors
+            foreach (var d in vm.ActorIds)
+            {
+                var s = new Actor_Movie();
+                s.MovieId = dp.Id;
+                s.ActorId = d;
+                await db.Actor_Movies.AddAsync(s);
+                await db.SaveChangesAsync();
+            }
+        }
     }
 }
