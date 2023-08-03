@@ -25,5 +25,14 @@ namespace ETicket.Controllers
             };
             return View(response);
         }
+        public async Task<RedirectToActionResult> AddToShoppingCart(int  id) 
+        {
+            var i =await movieService.GetMovieById(id);     
+            if(i!=null)
+            {
+                shoppingCart.AddItemCart(i);
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
