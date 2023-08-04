@@ -68,5 +68,11 @@ namespace ETicket.Data.Cart
             var total=db.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n =>n.Movie.Price *n.Amount).Sum();
             return total;
         }
+        public async Task ClearShoppingCart()
+        {
+            var items =await db.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();
+            db.ShoppingCartItems.RemoveRange(items);
+            await db.SaveChangesAsync();
+        }
     }
 }
