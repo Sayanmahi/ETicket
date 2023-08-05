@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager;
+@if(User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-danger my-2 my-sm-0"><i class="bi bi-box-arrow-in-right"></i>LOGOUT</button>
+    </form>
+    <div>Hello @UserManager.GetUserName(User)</div>
+    <br />
+    <form class="form-inline my-2 my-lg-0" asp-controller="Movie" asp-action="Filter" style="padding-right: 25px;">
+        <input name="searchString" type="text" class="form-control" placeholder="Search for a movie..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+    <ul class="navbar-nav">
+        @await Component.InvokeAsync("ShoppingCartSummary")
+    </ul>
+}else
+{
+    <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login"><i class="bi bi-box-arrow-i-right"></i>Login</a>
+    <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i>Register</a>
+
+}
