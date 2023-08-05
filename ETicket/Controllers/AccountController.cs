@@ -77,5 +77,11 @@ namespace ETicket.Controllers
             return View("RegisterCompleted");
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index","Movie");
+        }
     }
 }
