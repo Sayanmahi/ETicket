@@ -30,7 +30,10 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                         <a class="btn btn-outline-success float-right" asp-action="Update" asp-route-id="@Model.Id">Edit</a>
+                    }
                         <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                     </div>
 
