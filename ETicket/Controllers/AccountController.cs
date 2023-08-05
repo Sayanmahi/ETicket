@@ -1,4 +1,5 @@
 ﻿using ETicket.Data;
+using ETicket.Data.Static;
 using ETicket.Data.ViewModel;
 using ETicket.Models;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,36 @@ namespace ETicket.Controllers
             }
             TempData["Error"] = "Wrong Credentials please try again";
             return View(loginVM);
+        }
+        public IActionResult Register()
+        {
+            var response = new RegisterVM();
+            return View(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterVM registerVM)
+        {
+            if (!ModelState.IsValid)
+                return View(registerVM);
+            var user = await userManager.FindByEmailAsync(registerVM.EmailAddress);
+            if(user != null ) 
+            {
+                TempData["Error"] = "User already Exist. Please Login";
+                return View(nameof(Login));
+            }
+            var newuser = new ApplicationUser()
+            {
+                FullName = registerVM.FullName,
+                Email = registerVM.EmailAddress,
+                UserName = registerVM.EmailAddress
+            };
+            var newuserresponse= await userManager.CreateAsync(newuser,registerVM.Password);
+            if(newuserresponse.Succeeded)
+            {
+                await userManager.AddToRoleAsync(newuser, UserRoles.User);
+            }
+            return View("RegisterCompleted");
+
         }
     }
 }
