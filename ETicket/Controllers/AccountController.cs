@@ -23,5 +23,28 @@ namespace ETicket.Controllers
             var response = new LoginVM();
             return View(response);
         }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM loginVM)
+        {
+            if (!ModelState.IsValid)
+                return (View(loginVM));
+            var user = await userManager.FindByEmailAsync(loginVM.EmailAddress);
+            if(user !=null)
+            {
+                var passwordcheck = await userManager.CheckPasswordAsync(user, loginVM.Password);
+                if(passwordcheck)
+                {
+                    var result = await signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
+                    if(result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Movie");
+                    }
+                }
+                TempData["Error"] = "Wrong Credentials please try again";
+                return View(loginVM);
+            }
+            TempData["Error"] = "Wrong Credentials please try again";
+            return View(loginVM);
+        }
     }
 }

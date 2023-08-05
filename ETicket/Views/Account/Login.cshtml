@@ -8,6 +8,12 @@
         <p>
             <h4>Log in to your Account</h4>
         </p>
+        @if(TempData["Error"]!= null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry! @TempData["Error"]</b></span>
+                </div>
+        }
         <div class="row">
             <div class="col-mdd-8 offset-2">
                 <form asp-action="Login">
