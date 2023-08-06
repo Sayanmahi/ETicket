@@ -1,12 +1,15 @@
 ﻿using ETicket.Data;
 using ETicket.Data.Services;
+using ETicket.Data.Static;
 using ETicket.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETicket.Controllers
 {
+    [Authorize(Roles =UserRoles.Admin)]
     public class MovieController : Controller
     {
         private readonly IMovieService db;
@@ -14,12 +17,13 @@ namespace ETicket.Controllers
         {
             db = _db;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var d=await  db.GetAllAsync(n => n.Cinema);
             return View(d);
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
             var d = await db.GetAllAsync(n => n.Cinema);
@@ -30,6 +34,7 @@ namespace ETicket.Controllers
             }
             return View("Index",d);
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var m = await db.GetMovieById(id);

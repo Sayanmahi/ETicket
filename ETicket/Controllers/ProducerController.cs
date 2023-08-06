@@ -1,11 +1,14 @@
 ﻿using ETicket.Data;
 using ETicket.Data.Services;
+using ETicket.Data.Static;
 using ETicket.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETicket.Controllers
 {
+    [Authorize(Roles =UserRoles.Admin)]
     public class ProducerController : Controller
     {
         private readonly IProducerService db;
@@ -13,11 +16,13 @@ namespace ETicket.Controllers
         {
             db = _db;            
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var d = await db.GetAll(); ;
             return View(d);
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int Id)
         {
             var d= await db.GetById(Id);

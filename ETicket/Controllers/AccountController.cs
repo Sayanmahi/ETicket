@@ -89,5 +89,9 @@ namespace ETicket.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index","Movie");
         }
+        public IActionResult AccessDenied(string ReturnUrl)
+        {
+            return View();
+        }
     }
 }

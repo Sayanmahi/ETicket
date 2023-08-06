@@ -1,11 +1,14 @@
 ﻿using ETicket.Data.Cart;
 using ETicket.Data.Services;
+using ETicket.Data.Static;
 using ETicket.Data.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace ETicket.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IMovieService movieService;
