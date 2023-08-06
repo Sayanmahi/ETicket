@@ -10,9 +10,13 @@ namespace ETicket.Data.Services
         {
             db = _db;
         }
-        public async Task<List<Order>> GetOrdersByUserId(string userId)
+        public async Task<List<Order>> GetOrdersByUserId(string userId,string userRole)
         {
-            var o =await db.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Movie).Where(n => n.UserId == userId).ToListAsync();
+            var o =await db.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Movie).Include(n=>n.User).ToListAsync();
+            if(userRole !="Admin")
+            {
+                o=o.Where(n=>n.UserId==userId).ToList();
+            }
             return o;
         }
 

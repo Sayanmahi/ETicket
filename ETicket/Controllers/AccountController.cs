@@ -4,6 +4,7 @@ using ETicket.Data.ViewModel;
 using ETicket.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicket.Controllers
 {
@@ -18,6 +19,11 @@ namespace ETicket.Controllers
             signInManager = _signInManager;
             appDbContext = _appDbContext;
             
+        }
+        public async Task<IActionResult> Users()
+        {
+            var users=await appDbContext.Users.ToListAsync();
+            return View(users);
         }
         public IActionResult Login()
         {

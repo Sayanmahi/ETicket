@@ -1,0 +1,34 @@
+﻿@model List<ApplicationUser>
+@{
+    ViewData["Title"] = "List of all users";
+}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>
+            <h4>List of all Users</h4>
+        </p>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Full Name</th>
+                    <th>User Name</th>
+                    <th>Email Address</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model)
+                {
+                    <tr>
+
+                        <td class="align-middle"><b>@Html.DisplayFor(modelItem => v.FullName)</b></td>
+                        <td class="align-middle"><b>@Html.DisplayFor(modelItem => v.UserName)</b></td>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => v.Email)</td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

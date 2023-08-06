@@ -2,6 +2,7 @@
 using ETicket.Data.Services;
 using ETicket.Data.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ETicket.Controllers
 {
@@ -18,8 +19,9 @@ namespace ETicket.Controllers
         }
         public async Task<IActionResult> GetWhatOrdered()
         {
-            string userId = "1";
-            var orders =await ordersService.GetOrdersByUserId(userId);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
+            var orders =await ordersService.GetOrdersByUserId(userId,userRole);
             return View(orders);
         }
         public IActionResult Index()
@@ -54,8 +56,8 @@ namespace ETicket.Controllers
         public async Task<IActionResult> CompleteOrder()
         {
             var items = shoppingCart.GetShoppingCartItems();
-            string userId = "1";
-            string userEmailAddress = "sayanmukherjee37@gmail.com";
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
             await ordersService.StoreOrder(items, userId, userEmailAddress);
             await shoppingCart.ClearShoppingCart();
             return View("OrderCompleted");
