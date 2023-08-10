@@ -29,7 +29,7 @@ namespace ETicket.Controllers
             var d = await db.GetAllAsync(n => n.Cinema);
             if(!string.IsNullOrEmpty(searchString))
                 {
-               var resu = d.Where(n => n.Name.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+               var resu = d.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
                 return View("Index", resu);
             }
             return View("Index",d);
